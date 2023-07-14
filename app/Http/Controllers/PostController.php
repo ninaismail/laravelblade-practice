@@ -33,6 +33,6 @@ class PostController extends Controller
         
         $posts = Post::where('title', 'like', '%' . $search . '%')->get();
         
-        return view('components.search-form', compact('posts', 'search'));
+        return view('index', compact('posts', 'search'));
     }
 }

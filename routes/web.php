@@ -17,4 +17,4 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('add-blog-post-form', [PostController::class, 'index']);
-Route::post('store-form', [PostController::class, 'store']);
+Route::post('store-form', [PostController::class, 'store'])->name('store-form');

@@ -9,14 +9,21 @@ class PostController extends Controller
 {
     public function index()
     {
-        return view('add-blog-post-form');
+        $posts = Post::all(); // Fetch posts from the database
+        return view('add-blog-post-form', compact('posts')); // Pass the posts to the view
     }
     public function store(Request $request)
     {
-        $post = new Post;
-        $post->title = $request->title;
-        $post->description = $request->description;
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
+        $post = new Post();
+        $post->title = $validatedData['title'];
+        $post->description = $validatedData['description'];
         $post->save();
-        return redirect('add-blog-post-form')->with('status', 'Blog Post Form Data Has Been inserted');
+
+        return redirect()->back()->with('status', 'Post added successfully!');
     }
 }

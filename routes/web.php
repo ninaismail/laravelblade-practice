@@ -16,5 +16,6 @@ use App\Http\Controllers\PostController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('add-blog-post-form', [PostController::class, 'index']);
+Route::get('index', [PostController::class, 'index']);
 Route::post('store-form', [PostController::class, 'store'])->name('store-form');
+Route::get('search-posts', [PostController::class, 'search'])->name('search-posts');

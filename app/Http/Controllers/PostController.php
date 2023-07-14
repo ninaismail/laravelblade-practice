@@ -10,7 +10,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all(); // Fetch posts from the database
-        return view('add-blog-post-form', compact('posts')); // Pass the posts to the view
+        $search = ""; // Initialize $search variable with an empty string
+        return view('index', compact('search','posts'));
     }
     public function store(Request $request)
     {
@@ -25,5 +26,13 @@ class PostController extends Controller
         $post->save();
 
         return redirect()->back()->with('status', 'Post added successfully!');
+    }
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+        
+        $posts = Post::where('title', 'like', '%' . $search . '%')->get();
+        
+        return view('components.search-form', compact('posts', 'search'));
     }
 }
